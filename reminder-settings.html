@@ -1,691 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reminder Settings - Titan</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Lucide Icons CDN -->
-<script src="https://unpkg.com/lucide@latest"></script>
-<style>
-  /* ── Core Design System ── */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #ffffff;
-    color: #1f2937;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reminder Settings - Titan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ── Core Design System ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* ── Sidebar ── */
-  .sidebar {
-    width: 280px;
-    background: #f4f5f8;
-    border-right: 1px solid #e5e7eb;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    overflow-y: auto;
-    padding: 16px 0;
-  }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #ffffff;
+      color: #1f2937;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
 
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #2170f4;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 8px 24px;
-    margin-bottom: 24px;
-    transition: color 0.15s ease, transform 0.15s ease;
-  }
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 280px;
+      background: #f4f5f8;
+      border-right: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+      padding: 16px 0;
+    }
 
-  .back-btn:hover {
-    color: #1a5bcf;
-    transform: translateX(-2px);
-  }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #2170f4;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 24px;
+      margin-bottom: 24px;
+      transition: color 0.15s ease, transform 0.15s ease;
+    }
 
-  .sidebar-section-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: #8a8d9f;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    padding: 12px 24px 6px;
-  }
+    .back-btn:hover {
+      color: #1a5bcf;
+      transform: translateX(-2px);
+    }
 
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 24px;
-    color: #4b5563;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background 0.15s ease, color 0.15s ease;
-    cursor: pointer;
-  }
+    .sidebar-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #8a8d9f;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 12px 24px 6px;
+    }
 
-  .nav-item:hover {
-    background: #eaedf4;
-    color: #1f2937;
-  }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 24px;
+      color: #4b5563;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.15s ease, color 0.15s ease;
+      cursor: pointer;
+    }
 
-  .nav-item.active {
-    background: #e2e6f0;
-    color: #111827;
-    font-weight: 600;
-  }
+    .nav-item:hover {
+      background: #eaedf4;
+      color: #1f2937;
+    }
 
-  .nav-item i {
-    width: 18px;
-    height: 18px;
-    stroke-width: 2;
-  }
+    .nav-item.active {
+      background: #e2e6f0;
+      color: #111827;
+      font-weight: 600;
+    }
 
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 24px 24px 8px;
-    font-size: 12px;
-    color: #8a8d9f;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    .nav-item i {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+    }
 
-  .sidebar-footer a {
-    color: #2170f4;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-  }
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 24px 24px 8px;
+      font-size: 12px;
+      color: #8a8d9f;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .sidebar-footer a:hover {
-    text-decoration: underline;
-  }
+    .sidebar-footer a {
+      color: #2170f4;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
 
-  /* ── Main Content Area ── */
-  .main-area {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: #ffffff;
-  }
+    .sidebar-footer a:hover {
+      text-decoration: underline;
+    }
 
-  /* ── Header ── */
-  .header {
-    height: 64px;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    flex-shrink: 0;
-  }
+    /* ── Main Content Area ── */
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #ffffff;
+    }
 
-  .header h1 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #111827;
-  }
+    /* ── Header ── */
+    .header {
+      height: 64px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      flex-shrink: 0;
+    }
 
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111827;
+    }
 
-  .profile-pill {
-    background: #f3f4f6;
-    border-radius: 20px;
-    padding: 6px 12px 6px 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: background 0.15s ease;
-    border: 1px solid transparent;
-  }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-  .profile-pill:hover {
-    background: #e5e7eb;
-  }
+    .profile-pill {
+      background: #f3f4f6;
+      border-radius: 20px;
+      padding: 6px 12px 6px 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      border: 1px solid transparent;
+    }
 
-  .avatar {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: #0d9488; /* Teal color matching avatar */
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 600;
-  }
+    .profile-pill:hover {
+      background: #e5e7eb;
+    }
 
-  .profile-email {
-    font-size: 13px;
-    font-weight: 500;
-    color: #374151;
-  }
+    .avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #0d9488;
+      /* Teal color matching avatar */
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
 
-  .profile-pill i {
-    color: #6b7280;
-  }
+    .profile-email {
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+    }
 
-  .close-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
-    background: #f3f4f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #4b5563;
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.15s ease;
-  }
+    .profile-pill i {
+      color: #6b7280;
+    }
 
-  .close-btn:hover {
-    background: #e5e7eb;
-    color: #111827;
-    transform: scale(1.05);
-  }
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4b5563;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
 
-  /* ── Settings Content Scroll View ── */
-  .content-scroll {
-    flex: 1;
-    overflow-y: auto;
-    padding: 40px;
-  }
+    .close-btn:hover {
+      background: #e5e7eb;
+      color: #111827;
+      transform: scale(1.05);
+    }
 
-  .content-container {
-    max-width: 720px;
-  }
+    /* ── Settings Content Scroll View ── */
+    .content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px;
+    }
 
-  /* ── Settings Card ── */
-  .card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  }
+    .content-container {
+      max-width: 720px;
+    }
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
+    /* ── Settings Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
 
-  .card-header-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #2170f4;
-  }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
 
-  .card-header-icon i {
-    width: 20px;
-    height: 20px;
-  }
+    .card-header-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2170f4;
+    }
 
-  .card-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-  }
+    .card-header-icon i {
+      width: 20px;
+      height: 20px;
+    }
 
-  .verified-badge {
-    color: #10b981;
-    display: inline-flex;
-    align-items: center;
-  }
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
 
-  .verified-badge i {
-    width: 16px;
-    height: 16px;
-  }
+    .verified-badge {
+      color: #10b981;
+      display: inline-flex;
+      align-items: center;
+    }
 
-  .card-description {
-    font-size: 14px;
-    color: #4b5563;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
+    .verified-badge i {
+      width: 16px;
+      height: 16px;
+    }
 
-  .card-action-btn {
-    background: #ffffff;
-    border: 1px solid #2170f4;
-    color: #2170f4;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
+    .card-description {
+      font-size: 14px;
+      color: #4b5563;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
 
-  .card-action-btn:hover {
-    background: #eff6ff;
-  }
+    .card-action-btn {
+      background: #ffffff;
+      border: 1px solid #2170f4;
+      color: #2170f4;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
 
-  /* ── Warning Banner ── */
-  .warning-banner {
-    background: #fffbeb;
-    border-radius: 6px;
-    padding: 12px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
+    .card-action-btn:hover {
+      background: #eff6ff;
+    }
 
-  .warning-icon {
-    color: #d97706;
-    display: flex;
-    align-items: center;
-    padding-top: 2px;
-  }
+    /* ── Warning Banner ── */
+    .warning-banner {
+      background: #fffbeb;
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
 
-  .warning-icon i {
-    width: 18px;
-    height: 18px;
-  }
+    .warning-icon {
+      color: #d97706;
+      display: flex;
+      align-items: center;
+      padding-top: 2px;
+    }
 
-  .warning-text {
-    font-size: 13px;
-    color: #92400e;
-    line-height: 1.5;
-  }
+    .warning-icon i {
+      width: 18px;
+      height: 18px;
+    }
 
-  /* ── Interactive Modals ── */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(2px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
+    .warning-text {
+      font-size: 13px;
+      color: #92400e;
+      line-height: 1.5;
+    }
 
-  .modal {
-    background: #ffffff;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 480px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    border: 1px solid #e5e7eb;
-    overflow: hidden;
-    transform: translateY(20px);
-    transition: transform 0.25s ease;
-  }
+    /* ── Interactive Modals ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
 
-  .modal-overlay.open {
-    display: flex;
-  }
+    .modal {
+      background: #ffffff;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e5e7eb;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.25s ease;
+    }
 
-  .modal-overlay.open .modal {
-    transform: translateY(0);
-  }
+    .modal-overlay.open {
+      display: flex;
+    }
 
-  .modal-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
 
-  .modal-header h2 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-  }
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  .modal-close {
-    cursor: pointer;
-    color: #9ca3af;
-    background: none;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    padding: 4px;
-  }
+    .modal-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
 
-  .modal-close:hover {
-    color: #4b5563;
-    background: #f3f4f6;
-  }
+    .modal-close {
+      cursor: pointer;
+      color: #9ca3af;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      padding: 4px;
+    }
 
-  .modal-body {
-    padding: 20px;
-  }
+    .modal-close:hover {
+      color: #4b5563;
+      background: #f3f4f6;
+    }
 
-  .modal-footer {
-    padding: 12px 20px;
-    background: #f9fafb;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-  }
+    .modal-body {
+      padding: 20px;
+    }
 
-  .btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.15s ease;
-    border: 1px solid transparent;
-  }
+    .modal-footer {
+      padding: 12px 20px;
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
 
-  .btn-secondary {
-    background: #ffffff;
-    border-color: #d1d5db;
-    color: #374151;
-  }
+    .btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      border: 1px solid transparent;
+    }
 
-  .btn-secondary:hover {
-    background: #f9fafb;
-  }
+    .btn-secondary {
+      background: #ffffff;
+      border-color: #d1d5db;
+      color: #374151;
+    }
 
-  .btn-primary {
-    background: #2170f4;
-    color: #ffffff;
-  }
+    .btn-secondary:hover {
+      background: #f9fafb;
+    }
 
-  .btn-primary:hover {
-    background: #1a5bcf;
-  }
+    .btn-primary {
+      background: #2170f4;
+      color: #ffffff;
+    }
 
-  .pwd-display {
-    background: #f3f4f6;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    padding: 12px;
-    font-family: monospace;
-    font-size: 16px;
-    font-weight: 600;
-    color: #111827;
-    text-align: center;
-    letter-spacing: 2px;
-    margin: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
+    .btn-primary:hover {
+      background: #1a5bcf;
+    }
 
-  .copy-btn {
-    background: none;
-    border: none;
-    color: #2170f4;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4px;
-    border-radius: 4px;
-  }
+    .pwd-display {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+      text-align: center;
+      letter-spacing: 2px;
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
 
-  .copy-btn:hover {
-    background: #e5e7eb;
-  }
+    .copy-btn {
+      background: none;
+      border: none;
+      color: #2170f4;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 4px;
+    }
 
-  /* ── Toast Notification ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #1f2937;
-    color: #ffffff;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    transform: translateY(100px);
-    opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-    z-index: 200;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    .copy-btn:hover {
+      background: #e5e7eb;
+    }
 
-  .toast.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    /* ── Toast Notification ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1f2937;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  /* ── Custom Inline Select (Matching Design System) ── */
-  .inline-select {
-    display: inline-block;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    background: #ffffff;
-    padding: 6px 28px 6px 12px;
-    outline: none;
-    cursor: pointer;
-    margin: 0 4px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    -webkit-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
-  }
-  .inline-select:hover {
-    border-color: #cbd5e1;
-  }
-  .inline-select:focus {
-    border-color: #2170f4;
-    box-shadow: 0 0 0 3px rgba(33, 112, 244, 0.1);
-  }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
 
-  /* ── Custom Inline Time Input (Matching Design System) ── */
-  .inline-time-input {
-    display: inline-block;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    border: 1px solid #e5e7eb;
-    border-radius: 6px;
-    background: #ffffff;
-    padding: 6px 12px;
-    outline: none;
-    cursor: text;
-    margin: 0;
-    width: 140px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  }
-  .inline-time-input:hover {
-    border-color: #cbd5e1;
-  }
-  .inline-time-input:focus {
-    border-color: #2170f4;
-    box-shadow: 0 0 0 3px rgba(33, 112, 244, 0.1);
-  }
+    /* ── Custom Inline Select (Matching Design System) ── */
+    .inline-select {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: #ffffff;
+      padding: 6px 28px 6px 12px;
+      outline: none;
+      cursor: pointer;
+      margin: 0 4px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+    }
 
-  /* ── Custom Radio buttons ── */
-  .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 14px;
-  }
-  .radio-option {
-    display: flex;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    user-select: none;
-    padding-left: 28px;
-  }
-  .radio-option input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .radio-checkmark {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    height: 18px;
-    width: 18px;
-    background-color: #ffffff;
-    border: 1.5px solid #d1d5db;
-    border-radius: 50%;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
-  }
-  .radio-option:hover input ~ .radio-checkmark {
-    border-color: #2170f4;
-  }
-  .radio-option input:checked ~ .radio-checkmark {
-    border-color: #2170f4;
-  }
-  .radio-checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  .radio-option input:checked ~ .radio-checkmark:after {
-    display: block;
-  }
-  .radio-option .radio-checkmark:after {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #2170f4;
-  }
-  .radio-label {
-    font-size: 14px;
-    color: #374151;
-    font-weight: 500;
-  }
+    .inline-select:hover {
+      border-color: #cbd5e1;
+    }
 
-  /* ── Custom Checkbox (Weekdays Only) ── */
-  .checkbox-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #e5e7eb;
-  }
-  .checkbox-content {
-    flex: 1;
-    padding-right: 24px;
-  }
-  .custom-checkbox-container {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    user-select: none;
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-  }
-  .custom-checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  .custom-checkbox-container .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #ffffff;
-    border: 1.5px solid #d1d5db;
-    border-radius: 4px;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
-  }
-  .custom-checkbox-container:hover input ~ .checkmark {
-    border-color: #2170f4;
-  }
-  .custom-checkbox-container input:checked ~ .checkmark {
-    background-color: #2170f4;
-    border-color: #2170f4;
-  }
-  .custom-checkbox-container .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  .custom-checkbox-container input:checked ~ .checkmark:after {
-    display: block;
-  }
-  .custom-checkbox-container .checkmark:after {
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
+    .inline-select:focus {
+      border-color: #2170f4;
+      box-shadow: 0 0 0 3px rgba(33, 112, 244, 0.1);
+    }
 
-  /* ── Settings Layout Elements ── */
-  .setting-section-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #111827;
-    margin-bottom: 6px;
-  }
-  .setting-section-desc {
-    font-size: 13px;
-    color: #6b7280;
-    line-height: 1.5;
-  }
-  .setting-option-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: #111827;
-    line-height: 1.4;
-    margin-bottom: 6px;
-    display: block;
-  }
-  .setting-option-desc {
-    font-size: 13px;
-    color: #6b7280;
-    line-height: 1.5;
-    display: block;
-  }
-</style>
+    /* ── Custom Inline Time Input (Matching Design System) ── */
+    .inline-time-input {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: #ffffff;
+      padding: 6px 12px;
+      outline: none;
+      cursor: text;
+      margin: 0;
+      width: 140px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .inline-time-input:hover {
+      border-color: #cbd5e1;
+    }
+
+    .inline-time-input:focus {
+      border-color: #2170f4;
+      box-shadow: 0 0 0 3px rgba(33, 112, 244, 0.1);
+    }
+
+    /* ── Custom Radio buttons ── */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      padding-left: 28px;
+    }
+
+    .radio-option input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .radio-checkmark {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 18px;
+      width: 18px;
+      background-color: #ffffff;
+      border: 1.5px solid #d1d5db;
+      border-radius: 50%;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .radio-option:hover input~.radio-checkmark {
+      border-color: #2170f4;
+    }
+
+    .radio-option input:checked~.radio-checkmark {
+      border-color: #2170f4;
+    }
+
+    .radio-checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .radio-option input:checked~.radio-checkmark:after {
+      display: block;
+    }
+
+    .radio-option .radio-checkmark:after {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2170f4;
+    }
+
+    .radio-label {
+      font-size: 14px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    /* ── Custom Checkbox (Weekdays Only) ── */
+    .checkbox-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .checkbox-content {
+      flex: 1;
+      padding-right: 24px;
+    }
+
+    .custom-checkbox-container {
+      display: block;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+    }
+
+    .custom-checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .custom-checkbox-container .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #ffffff;
+      border: 1.5px solid #d1d5db;
+      border-radius: 4px;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .custom-checkbox-container:hover input~.checkmark {
+      border-color: #2170f4;
+    }
+
+    .custom-checkbox-container input:checked~.checkmark {
+      background-color: #2170f4;
+      border-color: #2170f4;
+    }
+
+    .custom-checkbox-container .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .custom-checkbox-container input:checked~.checkmark:after {
+      display: block;
+    }
+
+    .custom-checkbox-container .checkmark:after {
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    /* ── Settings Layout Elements ── */
+    .setting-section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .setting-section-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .setting-option-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .setting-option-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
 
   <!-- Sidebar -->
@@ -788,12 +820,12 @@
 
   <!-- Main Content Area -->
   <div class="main-area">
-    
+
     <!-- Header -->
     <div class="header">
       <h1>Reminders</h1>
       <div class="header-actions">
-        
+
         <!-- Profile dropdown pill -->
         <div class="profile-pill" id="profilePill" onclick="toggleProfileDropdown()">
           <div class="avatar">E</div>
@@ -812,19 +844,21 @@
     <div class="content-scroll">
       <!-- Reminders Section (Default Active) -->
       <div class="content-container" id="reminders-content">
-        
+
         <!-- Section: Default Timing -->
         <div id="defaultReminderSetting" style="transition: opacity 0.15s ease;">
           <div class="setting-section-title">
             Default Timing
           </div>
           <p class="setting-section-desc" style="margin-bottom: 16px;">
-            Choose the default timing after which an auto reminder will trigger:
+            For Auto Reminders to follow-up, when there is no reply, remind me:
           </p>
-          
-          <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4b5563; font-weight: 500; margin-bottom: 24px;">
+
+          <div
+            style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4b5563; font-weight: 500; margin-bottom: 24px;">
             in
-            <select class="inline-select" id="reminderDays" style="margin: 0;" onchange="showToast('Settings auto-saved')">
+            <select class="inline-select" id="reminderDays" style="margin: 0;"
+              onchange="showToast('Settings auto-saved')">
               <option value="1">1 day</option>
               <option value="2">2 days</option>
               <option value="3" selected>3 days</option>
@@ -832,7 +866,8 @@
               <option value="7">1 week</option>
             </select>
             at
-            <input type="time" class="inline-time-input" id="reminderTime" value="08:00" style="flex-shrink: 0; width: 145px;" onchange="showToast('Settings auto-saved')">
+            <input type="time" class="inline-time-input" id="reminderTime" value="08:00"
+              style="flex-shrink: 0; width: 145px;" onchange="showToast('Settings auto-saved')">
           </div>
         </div>
 
@@ -847,7 +882,7 @@
           <p class="setting-section-desc">
             Automatically add your default reminder to these messages:
           </p>
-          
+
           <div class="radio-group" style="margin-top: 16px;">
             <label class="radio-option">
               <input type="radio" name="autoReminderType" value="follow-up" checked onchange="toggleThreshold()">
@@ -877,17 +912,18 @@
             <div style="flex: 1;">
               <span class="setting-option-title">Weekdays Only</span>
               <span class="setting-option-desc">
-                When reminders are set as a number of days, count weekdays only. With this option enabled, a reminder set for 2 days on Friday will return on Tuesday.
+                When reminders are set as a number of days, count weekdays only. With this option enabled, a reminder
+                set for 2 days on Friday will return on Tuesday.
               </span>
             </div>
           </div>
         </div>
-        
+
       </div>
 
       <!-- Security Section (Initially Hidden) -->
       <div class="content-container" id="security-content" style="display: none;">
-        
+
         <!-- Section: Two-Factor Authentication -->
         <div>
           <div class="card-header">
@@ -900,7 +936,8 @@
             </span>
           </div>
           <p class="card-description">
-            An extra layer of security for your account which requires you to enter a code in addition to your password. This ensures only you have access to your account.
+            An extra layer of security for your account which requires you to enter a code in addition to your password.
+            This ensures only you have access to your account.
           </p>
           <button class="card-action-btn" onclick="openModal('2fa-modal')" id="manage2faBtn">Manage</button>
         </div>
@@ -911,19 +948,21 @@
             <span class="card-title">Application Password</span>
           </div>
           <p class="card-description">
-            Allow third-party applications, like email clients, to access your account with unique passwords instead of using your account password.
+            Allow third-party applications, like email clients, to access your account with unique passwords instead of
+            using your account password.
           </p>
-          
+
           <!-- Warning Alert Box -->
           <div class="warning-banner">
             <div class="warning-icon">
               <i data-lucide="alert-circle"></i>
             </div>
             <div class="warning-text">
-              With Two-Factor Authentication enabled, third-party email clients like Gmail or Outlook's access is restricted. Use an application password to connect securely.
+              With Two-Factor Authentication enabled, third-party email clients like Gmail or Outlook's access is
+              restricted. Use an application password to connect securely.
             </div>
           </div>
-          
+
           <button class="card-action-btn" onclick="openModal('app-pwd-modal')" id="generatePwdBtn">Generate now</button>
         </div>
 
@@ -944,7 +983,8 @@
         <p style="font-size: 14px; color: #4b5563; line-height: 1.5; margin-bottom: 16px;">
           Two-factor authentication is currently active on your account via authenticator app.
         </p>
-        <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 16px; margin-bottom: 16px;">
+        <div
+          style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 16px; margin-bottom: 16px;">
           <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px;">
             <span style="color: #6b7280;">Configured Method</span>
             <span style="font-weight: 600; color: #111827;">Google Authenticator</span>
@@ -960,7 +1000,8 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeModal('2fa-modal')">Close</button>
-        <button class="btn btn-primary" onclick="showToast('2FA settings updated successfully'); closeModal('2fa-modal')">Save Changes</button>
+        <button class="btn btn-primary"
+          onclick="showToast('2FA settings updated successfully'); closeModal('2fa-modal')">Save Changes</button>
       </div>
     </div>
   </div>
@@ -974,15 +1015,18 @@
       </div>
       <div class="modal-body">
         <div id="pwd-setup-form">
-          <label style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: #374151;">Name your app password (e.g. Outlook Mac, Thunderbird)</label>
-          <input type="text" id="app-name-input" placeholder="e.g. Outlook Mac" style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none; margin-bottom: 12px;">
+          <label style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: #374151;">Name
+            your app password (e.g. Outlook Mac, Thunderbird)</label>
+          <input type="text" id="app-name-input" placeholder="e.g. Outlook Mac"
+            style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none; margin-bottom: 12px;">
           <p style="font-size: 12px; color: #6b7280; line-height: 1.5;">
             This helps you identify which device/app is using this password in case you need to revoke it later.
           </p>
         </div>
-        
+
         <div id="pwd-display-container" style="display: none;">
-          <p style="font-size: 14px; color: #10b981; font-weight: 500; margin-bottom: 8px;">App password generated successfully!</p>
+          <p style="font-size: 14px; color: #10b981; font-weight: 500; margin-bottom: 8px;">App password generated
+            successfully!</p>
           <p style="font-size: 13px; color: #4b5563; line-height: 1.5; margin-bottom: 12px;">
             Copy this password and use it to log in on your mail client. You won't be able to view it again.
           </p>
@@ -1049,13 +1093,13 @@
           break;
         }
       }
-      
+
       const container = document.getElementById('defaultReminderSetting');
       const isDisabled = (selectedValue === 'none');
-      
+
       container.style.opacity = isDisabled ? '0.4' : '1';
       container.style.pointerEvents = isDisabled ? 'none' : 'auto';
-      
+
       showToast('Settings auto-saved');
     }
 
@@ -1089,21 +1133,21 @@
         showToast("Please enter a name for the app password");
         return;
       }
-      
+
       // Generate a dummy password
       const parts = [];
       for (let i = 0; i < 4; i++) {
         parts.push(Math.random().toString(36).substring(2, 6));
       }
       const randomPassword = parts.join('-');
-      
+
       document.getElementById('generated-pwd').innerText = randomPassword;
       document.getElementById('pwd-setup-form').style.display = 'none';
       document.getElementById('pwd-display-container').style.display = 'block';
-      
+
       const actionBtn = document.getElementById('modal-action-btn');
       actionBtn.innerText = 'Done';
-      actionBtn.onclick = function() {
+      actionBtn.onclick = function () {
         closeModal('app-pwd-modal');
         showToast(`App password for "${appName}" generated`);
       };
@@ -1125,14 +1169,15 @@
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toast-message');
       toastMsg.innerText = message;
-      
+
       clearTimeout(toastTimeout);
       toast.classList.add('show');
-      
+
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
       }, 3000);
     }
   </script>
 </body>
+
 </html>
