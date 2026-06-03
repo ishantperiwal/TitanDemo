@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Reminder Prototype</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    background: #e8e8e8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  h1 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+
+  a {
+    display: block;
+    width: 280px;
+    padding: 14px 24px;
+    background: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  a:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  .label { flex: 1; }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Auto Reminder — Prototype Approaches</h1>
+
+  <a href="titan-mail.html" target="_blank">
+    <span class="label">Approach 1 — Inbox Pinned</span>
+    <span class="tag">Gmail-style</span>
+  </a>
+
+  <a href="titan-mail-toast.html" target="_blank">
+    <span class="label">Approach 2 — Toast Stack</span>
+    <span class="tag">Bottom-right</span>
+  </a>
+
+  <a href="titan-mail-approach3.html" target="_blank">
+    <span class="label">Approach 3 — Inline Line</span>
+    <span class="tag">Mac Mail-style</span>
+  </a>
+
+</body>
+</html>
