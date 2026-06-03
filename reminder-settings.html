@@ -19,6 +19,7 @@
     display: flex;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
   }
 
   /* ── Sidebar ── */
@@ -475,6 +476,214 @@
     transform: translateY(0);
     opacity: 1;
   }
+
+  /* ── Custom Inline Select (Matching Design System) ── */
+  .inline-select {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    padding: 6px 28px 6px 12px;
+    outline: none;
+    cursor: pointer;
+    margin: 0 4px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+  }
+  .inline-select:hover {
+    border-color: #cbd5e1;
+  }
+  .inline-select:focus {
+    border-color: #2170f4;
+    box-shadow: 0 0 0 3px rgba(33, 112, 244, 0.1);
+  }
+
+  /* ── Custom Inline Time Input (Matching Design System) ── */
+  .inline-time-input {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    padding: 6px 12px;
+    outline: none;
+    cursor: text;
+    margin: 0;
+    width: 140px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .inline-time-input:hover {
+    border-color: #cbd5e1;
+  }
+  .inline-time-input:focus {
+    border-color: #2170f4;
+    box-shadow: 0 0 0 3px rgba(33, 112, 244, 0.1);
+  }
+
+  /* ── Custom Radio buttons ── */
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .radio-option {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding-left: 28px;
+  }
+  .radio-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .radio-checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 18px;
+    width: 18px;
+    background-color: #ffffff;
+    border: 1.5px solid #d1d5db;
+    border-radius: 50%;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .radio-option:hover input ~ .radio-checkmark {
+    border-color: #2170f4;
+  }
+  .radio-option input:checked ~ .radio-checkmark {
+    border-color: #2170f4;
+  }
+  .radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .radio-option input:checked ~ .radio-checkmark:after {
+    display: block;
+  }
+  .radio-option .radio-checkmark:after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2170f4;
+  }
+  .radio-label {
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+  }
+
+  /* ── Custom Checkbox (Weekdays Only) ── */
+  .checkbox-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+  }
+  .checkbox-content {
+    flex: 1;
+    padding-right: 24px;
+  }
+  .custom-checkbox-container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+  .custom-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .custom-checkbox-container .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #ffffff;
+    border: 1.5px solid #d1d5db;
+    border-radius: 4px;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .custom-checkbox-container:hover input ~ .checkmark {
+    border-color: #2170f4;
+  }
+  .custom-checkbox-container input:checked ~ .checkmark {
+    background-color: #2170f4;
+    border-color: #2170f4;
+  }
+  .custom-checkbox-container .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .custom-checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .custom-checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  /* ── Settings Layout Elements ── */
+  .setting-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 6px;
+  }
+  .setting-section-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+  .setting-option-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.4;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .setting-option-desc {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+    display: block;
+  }
 </style>
 </head>
 <body>
@@ -500,7 +709,11 @@
       <i data-lucide="bell"></i>
       Notifications
     </a>
-    <a href="#" class="nav-item active">
+    <a href="#" class="nav-item active" id="tab-reminders" onclick="switchTab('reminders'); return false;">
+      <i data-lucide="bell-ring"></i>
+      Reminders
+    </a>
+    <a href="#" class="nav-item" id="tab-security" onclick="switchTab('security'); return false;">
       <i data-lucide="shield-check"></i>
       Security (2FA)
     </a>
@@ -578,7 +791,7 @@
     
     <!-- Header -->
     <div class="header">
-      <h1>Security (2FA)</h1>
+      <h1>Reminders</h1>
       <div class="header-actions">
         
         <!-- Profile dropdown pill -->
@@ -597,10 +810,93 @@
 
     <!-- Scrollable content view -->
     <div class="content-scroll">
-      <div class="content-container">
+      <!-- Reminders Section (Default Active) -->
+      <div class="content-container" id="reminders-content">
         
-        <!-- Two-Factor Authentication Card -->
-        <div class="card">
+        <!-- Section: Auto Reminders (Nudges) -->
+        <div>
+          <div class="setting-section-title">
+            Auto Reminders
+          </div>
+          <p class="setting-section-desc" style="margin-bottom: 24px;">
+            Choose when the system should automatically nudge you for emails requiring attention.
+          </p>
+          
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            
+            <!-- Option 1: Suggest emails to reply to -->
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <label class="custom-checkbox-container" style="margin-top: 2px;">
+                <input type="checkbox" checked id="autoSuggestReply" onchange="toggleThreshold('reply')">
+                <span class="checkmark"></span>
+              </label>
+              <div style="flex: 1;">
+                <span class="setting-option-title">Suggest emails to reply to</span>
+                <span class="setting-option-desc">
+                  Incoming emails you might have forgotten to respond to will appear at the top of your inbox.
+                </span>
+                
+                <!-- Reply Threshold Setting -->
+                <div id="replyThresholdContainer" style="margin-top: 12px; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; transition: opacity 0.15s ease;">
+                  Remind me if I haven't responded within
+                  <select class="inline-select" id="replyDays" onchange="showToast('Settings auto-saved')">
+                    <option value="1">1 day</option>
+                    <option value="2">2 days</option>
+                    <option value="3" selected>3 days</option>
+                    <option value="5">5 days</option>
+                    <option value="7">1 week</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Option 2: Suggest emails to follow up on -->
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+              <label class="custom-checkbox-container" style="margin-top: 2px;">
+                <input type="checkbox" checked id="autoSuggestFollowUp" onchange="toggleThreshold('followup')">
+                <span class="checkmark"></span>
+              </label>
+              <div style="flex: 1;">
+                <span class="setting-option-title">Suggest emails to follow up on</span>
+                <span class="setting-option-desc">
+                  Sent emails that have not received a response will appear at the top of your inbox.
+                </span>
+                
+                <!-- Follow-up Threshold Setting -->
+                <div id="followupThresholdContainer" style="margin-top: 12px; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; transition: opacity 0.15s ease;">
+                  Remind me if a sent email gets no response within
+                  <select class="inline-select" id="followupDays" onchange="showToast('Settings auto-saved')">
+                    <option value="1">1 day</option>
+                    <option value="2" selected>2 days</option>
+                    <option value="3">3 days</option>
+                    <option value="5">5 days</option>
+                    <option value="7">1 week</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Section: Default Reminder Time -->
+        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex: 1; padding-right: 24px;">
+              <div class="setting-section-title">Default Reminder Time</div>
+              <p class="setting-section-desc">Time of day reminders reappear in your inbox.</p>
+            </div>
+            <input type="time" class="inline-time-input" id="defaultReminderTime" value="08:00" style="flex-shrink: 0;" onchange="showToast('Settings auto-saved')">
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- Security Section (Initially Hidden) -->
+      <div class="content-container" id="security-content" style="display: none;">
+        
+        <!-- Section: Two-Factor Authentication -->
+        <div>
           <div class="card-header">
             <div class="card-header-icon">
               <i data-lucide="lock"></i>
@@ -616,8 +912,8 @@
           <button class="card-action-btn" onclick="openModal('2fa-modal')" id="manage2faBtn">Manage</button>
         </div>
 
-        <!-- Application Password Card -->
-        <div class="card">
+        <!-- Section: Application Password -->
+        <div style="margin-top: 32px; padding-top: 32px; border-top: 1px solid #e5e7eb;">
           <div class="card-header">
             <span class="card-title">Application Password</span>
           </div>
@@ -687,14 +983,14 @@
         <div id="pwd-setup-form">
           <label style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: #374151;">Name your app password (e.g. Outlook Mac, Thunderbird)</label>
           <input type="text" id="app-name-input" placeholder="e.g. Outlook Mac" style="width: 100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none; margin-bottom: 12px;">
-          <p style="font-size: 12px; color: #6b7280; line-height: 1.4;">
+          <p style="font-size: 12px; color: #6b7280; line-height: 1.5;">
             This helps you identify which device/app is using this password in case you need to revoke it later.
           </p>
         </div>
         
         <div id="pwd-display-container" style="display: none;">
           <p style="font-size: 14px; color: #10b981; font-weight: 500; margin-bottom: 8px;">App password generated successfully!</p>
-          <p style="font-size: 13px; color: #4b5563; line-height: 1.4; margin-bottom: 12px;">
+          <p style="font-size: 13px; color: #4b5563; line-height: 1.5; margin-bottom: 12px;">
             Copy this password and use it to log in on your mail client. You won't be able to view it again.
           </p>
           <div class="pwd-display">
@@ -728,6 +1024,42 @@
     if (document.referrer && (document.referrer.includes('titan-mail') || document.referrer.includes('index.html'))) {
       backBtn.href = document.referrer;
       closeBtn.href = document.referrer;
+    }
+
+    // Tab Switching Logic
+    function switchTab(tabName) {
+      // Update active class on nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      if (tabName === 'reminders') {
+        document.getElementById('tab-reminders').classList.add('active');
+        document.getElementById('reminders-content').style.display = 'block';
+        document.getElementById('security-content').style.display = 'none';
+        document.querySelector('.header h1').innerText = 'Reminders';
+      } else if (tabName === 'security') {
+        document.getElementById('tab-security').classList.add('active');
+        document.getElementById('reminders-content').style.display = 'none';
+        document.getElementById('security-content').style.display = 'block';
+        document.querySelector('.header h1').innerText = 'Security (2FA)';
+      }
+    }
+
+    // Toggle threshold select field visibility/availability
+    function toggleThreshold(type) {
+      if (type === 'reply') {
+        const checked = document.getElementById('autoSuggestReply').checked;
+        const container = document.getElementById('replyThresholdContainer');
+        container.style.opacity = checked ? '1' : '0.4';
+        container.style.pointerEvents = checked ? 'auto' : 'none';
+      } else if (type === 'followup') {
+        const checked = document.getElementById('autoSuggestFollowUp').checked;
+        const container = document.getElementById('followupThresholdContainer');
+        container.style.opacity = checked ? '1' : '0.4';
+        container.style.pointerEvents = checked ? 'auto' : 'none';
+      }
+      showToast('Settings auto-saved');
     }
 
     // Toggle dropdown pill (simulation)
