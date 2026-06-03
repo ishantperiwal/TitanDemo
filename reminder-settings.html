@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Security (2FA) - Titan Settings</title>
+<title>Reminder Settings - Titan</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <!-- Lucide Icons CDN -->
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -813,80 +813,73 @@
       <!-- Reminders Section (Default Active) -->
       <div class="content-container" id="reminders-content">
         
-        <!-- Section: Auto Reminders (Nudges) -->
-        <div>
+        <!-- Section: Default Timing -->
+        <div id="defaultReminderSetting" style="transition: opacity 0.15s ease;">
           <div class="setting-section-title">
-            Auto Reminders
+            Default Timing
           </div>
-          <p class="setting-section-desc" style="margin-bottom: 24px;">
-            Choose when the system should automatically nudge you for emails requiring attention.
+          <p class="setting-section-desc" style="margin-bottom: 16px;">
+            Choose the default timing after which an auto reminder will trigger:
           </p>
           
-          <div style="display: flex; flex-direction: column; gap: 24px;">
-            
-            <!-- Option 1: Suggest emails to reply to -->
-            <div style="display: flex; align-items: flex-start; gap: 12px;">
-              <label class="custom-checkbox-container" style="margin-top: 2px;">
-                <input type="checkbox" checked id="autoSuggestReply" onchange="toggleThreshold('reply')">
-                <span class="checkmark"></span>
-              </label>
-              <div style="flex: 1;">
-                <span class="setting-option-title">Suggest emails to reply to</span>
-                <span class="setting-option-desc">
-                  Incoming emails you might have forgotten to respond to will appear at the top of your inbox.
-                </span>
-                
-                <!-- Reply Threshold Setting -->
-                <div id="replyThresholdContainer" style="margin-top: 12px; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; transition: opacity 0.15s ease;">
-                  Remind me if I haven't responded within
-                  <select class="inline-select" id="replyDays" onchange="showToast('Settings auto-saved')">
-                    <option value="1">1 day</option>
-                    <option value="2">2 days</option>
-                    <option value="3" selected>3 days</option>
-                    <option value="5">5 days</option>
-                    <option value="7">1 week</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Option 2: Suggest emails to follow up on -->
-            <div style="display: flex; align-items: flex-start; gap: 12px;">
-              <label class="custom-checkbox-container" style="margin-top: 2px;">
-                <input type="checkbox" checked id="autoSuggestFollowUp" onchange="toggleThreshold('followup')">
-                <span class="checkmark"></span>
-              </label>
-              <div style="flex: 1;">
-                <span class="setting-option-title">Suggest emails to follow up on</span>
-                <span class="setting-option-desc">
-                  Sent emails that have not received a response will appear at the top of your inbox.
-                </span>
-                
-                <!-- Follow-up Threshold Setting -->
-                <div id="followupThresholdContainer" style="margin-top: 12px; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; transition: opacity 0.15s ease;">
-                  Remind me if a sent email gets no response within
-                  <select class="inline-select" id="followupDays" onchange="showToast('Settings auto-saved')">
-                    <option value="1">1 day</option>
-                    <option value="2" selected>2 days</option>
-                    <option value="3">3 days</option>
-                    <option value="5">5 days</option>
-                    <option value="7">1 week</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4b5563; font-weight: 500; margin-bottom: 24px;">
+            in
+            <select class="inline-select" id="reminderDays" style="margin: 0;" onchange="showToast('Settings auto-saved')">
+              <option value="1">1 day</option>
+              <option value="2">2 days</option>
+              <option value="3" selected>3 days</option>
+              <option value="5">5 days</option>
+              <option value="7">1 week</option>
+            </select>
+            at
+            <input type="time" class="inline-time-input" id="reminderTime" value="08:00" style="flex-shrink: 0; width: 145px;" onchange="showToast('Settings auto-saved')">
           </div>
         </div>
 
-        <!-- Section: Default Reminder Time -->
+        <!-- Section: Auto Reminders -->
         <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="flex: 1; padding-right: 24px;">
-              <div class="setting-section-title">Default Reminder Time</div>
-              <p class="setting-section-desc">Time of day reminders reappear in your inbox.</p>
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+            <div class="setting-section-title" style="margin-bottom: 0;">
+              Auto Reminders
             </div>
-            <input type="time" class="inline-time-input" id="defaultReminderTime" value="08:00" style="flex-shrink: 0;" onchange="showToast('Settings auto-saved')">
+            <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #2170f4;"></i>
+          </div>
+          <p class="setting-section-desc">
+            Automatically add your default reminder to these messages:
+          </p>
+          
+          <div class="radio-group" style="margin-top: 16px;">
+            <label class="radio-option">
+              <input type="radio" name="autoReminderType" value="follow-up" checked onchange="toggleThreshold()">
+              <span class="radio-checkmark"></span>
+              <span class="radio-label">All messages that need a follow-up</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="autoReminderType" value="external" onchange="toggleThreshold()">
+              <span class="radio-checkmark"></span>
+              <span class="radio-label">All messages with an external recipient</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="autoReminderType" value="none" onchange="toggleThreshold()">
+              <span class="radio-checkmark"></span>
+              <span class="radio-label">No messages</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Section: Weekdays Only -->
+        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5e7eb;">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <label class="custom-checkbox-container" style="margin-top: 2px;">
+              <input type="checkbox" checked id="weekdaysOnly" onchange="showToast('Settings auto-saved')">
+              <span class="checkmark"></span>
+            </label>
+            <div style="flex: 1;">
+              <span class="setting-option-title">Weekdays Only</span>
+              <span class="setting-option-desc">
+                When reminders are set as a number of days, count weekdays only. With this option enabled, a reminder set for 2 days on Friday will return on Tuesday.
+              </span>
+            </div>
           </div>
         </div>
         
@@ -1047,18 +1040,22 @@
     }
 
     // Toggle threshold select field visibility/availability
-    function toggleThreshold(type) {
-      if (type === 'reply') {
-        const checked = document.getElementById('autoSuggestReply').checked;
-        const container = document.getElementById('replyThresholdContainer');
-        container.style.opacity = checked ? '1' : '0.4';
-        container.style.pointerEvents = checked ? 'auto' : 'none';
-      } else if (type === 'followup') {
-        const checked = document.getElementById('autoSuggestFollowUp').checked;
-        const container = document.getElementById('followupThresholdContainer');
-        container.style.opacity = checked ? '1' : '0.4';
-        container.style.pointerEvents = checked ? 'auto' : 'none';
+    function toggleThreshold() {
+      const radios = document.getElementsByName('autoReminderType');
+      let selectedValue = '';
+      for (const radio of radios) {
+        if (radio.checked) {
+          selectedValue = radio.value;
+          break;
+        }
       }
+      
+      const container = document.getElementById('defaultReminderSetting');
+      const isDisabled = (selectedValue === 'none');
+      
+      container.style.opacity = isDisabled ? '0.4' : '1';
+      container.style.pointerEvents = isDisabled ? 'none' : 'auto';
+      
       showToast('Settings auto-saved');
     }
 

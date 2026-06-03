@@ -131,6 +131,7 @@
     border-right: 1px solid #dedede;
     display: flex; flex-direction: column;
     flex-shrink: 0;
+    position: relative;
   }
 
   /* ── Top Toolbar (full width above middle + reading pane) ── */
@@ -277,9 +278,55 @@
     display: flex; flex-direction: row; align-items: center; gap: 4px;
     font-size: 12px; font-weight: 500;
   }
-  .reminder-tag svg { flex-shrink: 0; }
+  .reminder-tag svg {
+    flex-shrink: 0;
+    pointer-events: none;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
   .reminder-tag.amber { color: #d97706; }
   .reminder-tag.purple { color: #7c3aed; }
+
+  .reminder-line {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: none;
+  }
+  .reminder-line.amber { color: #d97706; }
+  .reminder-line.purple { color: #7c3aed; }
+
+  /* ── Variation 2: Pinned List Clickable Pin Icon ── */
+  body.list-var-2 .email-tile.reminder-auto:hover .reminder-tag,
+  body.list-var-2 .email-tile.reminder-user:hover .reminder-tag {
+    display: flex !important;
+  }
+  body.list-var-2 .email-tile.reminder-auto:hover .tile-hover-actions,
+  body.list-var-2 .email-tile.reminder-user:hover .tile-hover-actions {
+    display: none !important;
+  }
+  body.list-var-2 .reminder-tag svg {
+    pointer-events: auto;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    border-radius: 50%;
+    background: transparent;
+  }
+  body.list-var-2 .reminder-tag.amber svg:hover {
+    background: rgba(217, 119, 6, 0.12);
+    transform: scale(1.15);
+  }
+  body.list-var-2 .reminder-tag.purple svg:hover {
+    background: rgba(124, 58, 237, 0.12);
+    transform: scale(1.15);
+  }
+  body.list-var-2 .reminder-line {
+    display: block !important;
+  }
+  body.list-var-2 .reminder-tag .reminder-text {
+    display: none !important;
+  }
 
   .reminder-section-divider {
     height: 1px; background: #dedede;
@@ -296,18 +343,19 @@
   .var-toggle {
     position: absolute;
     bottom: 20px; left: 24px;
-    font-size: 11px; font-weight: 600;
-    color: #777;
+    font-size: 13px; font-weight: 600;
+    color: #4b5563;
     background: #fff;
     border: 1px solid #dedede;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 6px;
+    padding: 8px 16px;
     cursor: pointer;
     user-select: none;
     z-index: 10;
-    transition: background 0.12s, color 0.12s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
   }
-  .var-toggle:hover { background: #f5f5f5; color: #333; }
+  .var-toggle:hover { background: #f9fafb; color: #111827; border-color: #cbd5e1; }
 
   /* nudge inside expanded tile */
   .nudge-inline {
@@ -716,8 +764,8 @@
 
       <!-- Reminder Section -->
       <div class="reminder-section">
-<!-- System auto-nudge tile -->
-        <div class="email-tile reminder-auto">
+        <!-- System auto-nudge tile -->
+        <div class="email-tile reminder-auto" id="ninad-reminder-tile">
           <div class="email-tile-inner">
             <div class="tile-icons">
               <div class="tile-chk"><div class="chk"><img src="assets/392bf29c-08b1-44e8-b95b-b99905e722e6.svg" alt=""></div></div>
@@ -727,12 +775,13 @@
               <div class="tile-sender bold">Ninad Raval</div>
               <div class="tile-subject">Project roadmap for Dashboard version</div>
               <div class="tile-preview">Looking for a change? How does working on Meatvedcdv...</div>
+              <div class="reminder-line amber">Sent 3 days ago, follow up?</div>
               <div class="reminder-tag amber">
-                Received 3 days ago, reply?
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#d97706"/></svg>
+                <span class="reminder-text">Sent 3 days ago, follow up?</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" onclick="dismissReminderTile(event, 'ninad')"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#d97706"/></svg>
               </div>
               <div class="tile-hover-actions">
-                <div class="tile-action-pill">
+                <div class="tile-action-pill" onclick="dismissReminderTile(event, 'ninad')">
                   <div class="icon18"><svg viewBox="0 0 18 18" fill="none" style="position:absolute;inset:0;width:100%;height:100%;"><path d="M14 4 4 14M4 4l10 10" stroke="#333" stroke-width="1.5" stroke-linecap="round"/></svg></div>
                 </div>
               </div>
@@ -752,12 +801,13 @@
               <div class="tile-sender bold">Sajal Kumar</div>
               <div class="tile-subject">Feedback on link and file tracking feature</div>
               <div class="tile-preview">Hi, Ella can you please review these mocks.</div>
+              <div class="reminder-line purple">Reminder</div>
               <div class="reminder-tag purple">
-                Reminder
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#7c3aed"/></svg>
+                <span class="reminder-text">Reminder</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" onclick="dismissReminderTile(event, 'sajal')"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#7c3aed"/></svg>
               </div>
               <div class="tile-hover-actions">
-                <div class="tile-action-pill">
+                <div class="tile-action-pill" onclick="dismissReminderTile(event, 'sajal')">
                   <div class="icon18"><svg viewBox="0 0 18 18" fill="none" style="position:absolute;inset:0;width:100%;height:100%;"><path d="M14 4 4 14M4 4l10 10" stroke="#333" stroke-width="1.5" stroke-linecap="round"/></svg></div>
                 </div>
               </div>
@@ -912,6 +962,7 @@
       </div>
 
     </div><!-- /email-list -->
+    <button class="var-toggle" id="listVarToggle" onclick="switchListVariation()">List Variation 1</button>
   </div><!-- /middle-panel -->
 
   <!-- Reading Pane -->
@@ -962,7 +1013,7 @@
       <!-- Variation 1: nudge above thread title -->
       <div class="thread-nudge thread-nudge-purple" id="nudgeV1">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#7c3aed"/></svg>
-        <span class="thread-nudge-text">You asked to be reminded about this · <span style="opacity:0.65">Today, 9:00 AM</span></span>
+        <span class="thread-nudge-text">Reminder for this message · <span style="opacity:0.65">Today, 4:10 PM</span></span>
         <button class="thread-nudge-dismiss" onclick="dismissV1()">Dismiss</button>
       </div>
 
@@ -979,24 +1030,27 @@
         </div>
       </div>
 
-      <!-- Expanded tile -->
+      <!-- Collapsed tile 2 (previous expanded tile) -->
+      <div class="thread-tile" style="margin-bottom: 8px;">
+        <div class="thread-tile-inner">
+          <span class="thread-sender">Sajal Kumar</span>
+          <span class="thread-preview">Hi Ella, I've been working on the link and file tracking feature and would love your feedback on the mocks I've put together. Let me know...</span>
+          <div class="thread-meta">
+            <span class="thread-date">02 Jun</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expanded tile (latest sent email from me) -->
       <div class="expanded-tile">
         <div class="expanded-header">
           <div>
-            <div class="exp-sender">Sajal Kumar</div>
-            <div class="exp-to">To: me</div>
+            <div class="exp-sender">me</div>
+            <div class="exp-to">To: Sajal Kumar</div>
           </div>
           <div class="exp-right">
-            <div class="exp-timestamp">Monday, 02 Jun, 10:30 am</div>
+            <div class="exp-timestamp">Tuesday, 03 Jun, 9:15 am</div>
             <div class="exp-actions">
-              <div class="exp-rr">
-                <div class="exp-rr-icon"><img src="assets/9c958176-ff20-49e6-9206-7659c8943371.svg" alt=""></div>
-                <span class="exp-rr-count">(4)</span>
-              </div>
-              <div class="exp-rr">
-                <div class="exp-rr-icon"><img src="assets/59af9c40-b8b7-40f0-ab10-349dd5700ac4.svg" alt=""></div>
-                <span class="exp-rr-count">(4)</span>
-              </div>
               <div class="exp-icon">
                 <img src="assets/f58c5077-66f8-4b70-8f2d-a29cb41ef735.svg" alt="">
               </div>
@@ -1013,15 +1067,18 @@
         <!-- Variation 2: nudge inside email body -->
         <div class="thread-nudge thread-nudge-purple nudge-inline" id="nudgeV2" style="display:none">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#7c3aed"/></svg>
-          <span class="thread-nudge-text">You asked to be reminded about this · <span style="opacity:0.65">Today, 9:00 AM</span></span>
+          <span class="thread-nudge-text">Reminder for this message · <span style="opacity:0.65">Today, 4:10 PM</span></span>
           <button class="thread-nudge-dismiss" onclick="dismissV2()">Dismiss</button>
         </div>
 
         <div class="expanded-body">
-          <p>Hi Ella,</p>
-          <p>I've been working on the link and file tracking feature and would love your feedback on the mocks I've put together. Let me know what you think!</p>
-          <p>&zwj;</p>
-          <p>Thanks!</p>
+          <p>Hi Sajal,</p>
+          <p>I had a quick look at these tracking mocks. They look really clean! I just had a small suggestion regarding the hover states—could we simplify them a bit so they feel more lightweight?</p>
+          <br>
+          <p>Let me know what you think!</p>
+          <br>
+          <p>Thanks,</p>
+          <p>Ella</p>
         </div>
 
         <div class="expanded-footer-hr"></div>
@@ -1058,6 +1115,7 @@
 
 <script>
   let currentVar = 1;
+  let currentListVar = 1;
 
   function switchVariation() {
     const v1 = document.getElementById('nudgeV1');
@@ -1077,14 +1135,43 @@
     }
   }
 
-  function moveReminderTile(nudgeId) {
-    document.getElementById(nudgeId).style.display = 'none';
-    document.getElementById('sajal-reminder-tile').style.display = 'none';
-    document.getElementById('sajal-natural-tile').style.display = 'block';
+  function switchListVariation() {
+    const listBtn = document.getElementById('listVarToggle');
+    if (currentListVar === 1) {
+      document.body.classList.add('list-var-2');
+      listBtn.textContent = 'List Variation 2';
+      currentListVar = 2;
+    } else {
+      document.body.classList.remove('list-var-2');
+      listBtn.textContent = 'List Variation 1';
+      currentListVar = 1;
+    }
   }
 
-  function dismissV1() { moveReminderTile('nudgeV1'); }
-  function dismissV2() { moveReminderTile('nudgeV2'); }
+  function dismissReminderTile(event, type) {
+    if (event) {
+      event.stopPropagation();
+    }
+    
+    if (type === 'ninad') {
+      const tile = document.getElementById('ninad-reminder-tile');
+      if (tile) tile.style.display = 'none';
+    } else if (type === 'sajal') {
+      const tile = document.getElementById('sajal-reminder-tile');
+      if (tile) tile.style.display = 'none';
+      const naturalTile = document.getElementById('sajal-natural-tile');
+      if (naturalTile) naturalTile.style.display = 'block';
+      
+      // Also hide thread nudges in reading pane
+      const nudgeV1 = document.getElementById('nudgeV1');
+      if (nudgeV1) nudgeV1.style.display = 'none';
+      const nudgeV2 = document.getElementById('nudgeV2');
+      if (nudgeV2) nudgeV2.style.display = 'none';
+    }
+  }
+
+  function dismissV1() { dismissReminderTile(null, 'sajal'); }
+  function dismissV2() { dismissReminderTile(null, 'sajal'); }
 </script>
 </body>
 </html>

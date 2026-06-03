@@ -759,7 +759,7 @@
             </div>
             <div class="tile-subject">Project roadmap for Dashboard version</div>
             <div class="tile-preview">Since the last time we met, I have been working on...</div>
-            <div class="reminder-line amber">Received 3 days ago, reply?</div>
+            <div class="reminder-line amber">Sent 3 days ago, follow up?</div>
             <div class="tile-hover-actions">
               <div class="tile-action-pill"><div class="icon18"><img src="assets/7c1d5199-2bce-428f-9bff-eb73b6954e12.svg" alt=""></div></div>
               <div class="tile-action-pill"><div class="icon18"><img src="assets/65a9156f-d37a-414e-bef2-e5b477cb6436.svg" alt=""></div></div>
@@ -937,7 +937,7 @@
       <!-- Variation 1: nudge above thread title -->
       <div class="thread-nudge thread-nudge-purple" id="nudgeV1">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#7c3aed"/></svg>
-        <span class="thread-nudge-text">You asked to be reminded about this · <span style="opacity:0.65">Today, 9:00 AM</span></span>
+        <span class="thread-nudge-text">Reminder for this message · <span style="opacity:0.65">Today, 4:10 PM</span></span>
         <button class="thread-nudge-dismiss" onclick="dismissV1()">Dismiss</button>
       </div>
 
@@ -954,24 +954,27 @@
         </div>
       </div>
 
-      <!-- Expanded tile -->
+      <!-- Collapsed tile 2 (previous expanded tile) -->
+      <div class="thread-tile" style="margin-bottom: 8px;">
+        <div class="thread-tile-inner">
+          <span class="thread-sender">Sajal Kumar</span>
+          <span class="thread-preview">Hi Ella, I've been working on the link and file tracking feature and would love your feedback on the mocks I've put together. Let me know...</span>
+          <div class="thread-meta">
+            <span class="thread-date">02 Jun</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expanded tile (latest sent email from me) -->
       <div class="expanded-tile">
         <div class="expanded-header">
           <div>
-            <div class="exp-sender">Sajal Kumar</div>
-            <div class="exp-to">To: me</div>
+            <div class="exp-sender">me</div>
+            <div class="exp-to">To: Sajal Kumar</div>
           </div>
           <div class="exp-right">
-            <div class="exp-timestamp">Monday, 02 Jun, 10:30 am</div>
+            <div class="exp-timestamp">Tuesday, 03 Jun, 9:15 am</div>
             <div class="exp-actions">
-              <div class="exp-rr">
-                <div class="exp-rr-icon"><img src="assets/9c958176-ff20-49e6-9206-7659c8943371.svg" alt=""></div>
-                <span class="exp-rr-count">(4)</span>
-              </div>
-              <div class="exp-rr">
-                <div class="exp-rr-icon"><img src="assets/59af9c40-b8b7-40f0-ab10-349dd5700ac4.svg" alt=""></div>
-                <span class="exp-rr-count">(4)</span>
-              </div>
               <div class="exp-icon">
                 <img src="assets/f58c5077-66f8-4b70-8f2d-a29cb41ef735.svg" alt="">
               </div>
@@ -988,15 +991,18 @@
         <!-- Variation 2: nudge inside email body -->
         <div class="thread-nudge thread-nudge-purple nudge-inline" id="nudgeV2" style="display:none">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2Zm6-6V11a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1l-2-2Z" fill="#7c3aed"/></svg>
-          <span class="thread-nudge-text">You asked to be reminded about this · <span style="opacity:0.65">Today, 9:00 AM</span></span>
+          <span class="thread-nudge-text">Reminder for this message · <span style="opacity:0.65">Today, 4:10 PM</span></span>
           <button class="thread-nudge-dismiss" onclick="dismissV2()">Dismiss</button>
         </div>
 
         <div class="expanded-body">
-          <p>Hi Ella,</p>
-          <p>I've been working on the link and file tracking feature and would love your feedback on the mocks I've put together. Let me know what you think!</p>
-          <p>&zwj;</p>
-          <p>Thanks!</p>
+          <p>Hi Sajal,</p>
+          <p>I had a quick look at these tracking mocks. They look really clean! I just had a small suggestion regarding the hover states—could we simplify them a bit so they feel more lightweight?</p>
+          <br>
+          <p>Let me know what you think!</p>
+          <br>
+          <p>Thanks,</p>
+          <p>Ella</p>
         </div>
 
         <div class="expanded-footer-hr"></div>
